@@ -91,7 +91,7 @@ const Solutions = () => {
                         <td style={{ padding: '15px 10px', verticalAlign: 'middle' }}>
                           {firstImage ? (
                             <img 
-                              src={`http://localhost:5000/uploads/${firstImage.data}`}
+                              src={`${API_BASE_URL.replace('/api','')}/uploads/${firstImage.data}`}
                               alt="Solution"
                               style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px' }}
                             />

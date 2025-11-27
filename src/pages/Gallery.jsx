@@ -169,7 +169,7 @@ const Gallery = () => {
                       />
                     </div>
                     <img
-                      src={`http://localhost:5000/uploads/${image.filename}`}
+                      src={`${API_BASE_URL.replace('/api','')}/uploads/${image.filename}`}
                       alt="Gallery"
                       className="w-100"
                       style={{

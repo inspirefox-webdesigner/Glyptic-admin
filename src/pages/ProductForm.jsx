@@ -613,7 +613,7 @@ const ProductForm = () => {
                                 className="image-preview-item"
                               >
                                 <img
-                                  src={`http://localhost:5000/uploads/${filename}`}
+                                  src={`${API_BASE_URL.replace('/api','')}/uploads/${filename}`}
                                   alt={`Preview ${imgIndex + 1}`}
                                   style={{
                                     width: "100px",
@@ -795,7 +795,7 @@ const ProductForm = () => {
                                 style={{ width: "100%", maxWidth: "300px" }}
                               >
                                 <source
-                                  src={`http://localhost:5000/${content.data}`}
+                                  src={`${API_BASE_URL}/${content.data}`}
                                 />
                               </video>
                             ) : (
@@ -1082,7 +1082,7 @@ const ProductForm = () => {
                             }}
                           >
                             <img
-                              src={`http://localhost:5000/uploads/${content.data}`}
+                              src={`${API_BASE_URL.replace('/api','')}/uploads/${content.data}`}
                               alt="Cover Image"
                               style={{
                                 width: "150px",
@@ -1177,7 +1177,7 @@ const ProductForm = () => {
                                   style={{ position: "relative" }}
                                 >
                                   <img
-                                    src={`http://localhost:5000/uploads/${filename}`}
+                                    src={`${API_BASE_URL.replace('/api','')}/uploads/${filename}`}
                                     alt={`Variation ${imgIndex + 1}`}
                                     style={{
                                       width: "100px",

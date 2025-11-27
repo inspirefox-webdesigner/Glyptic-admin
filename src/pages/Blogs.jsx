@@ -177,7 +177,7 @@ const Blogs = () => {
                         >
                           {firstImage ? (
                             <img
-                              src={`http://localhost:5000/uploads/${firstImage.data}`}
+                              src={`${API_BASE_URL.replace('/api','')}/uploads/${firstImage.data}`}
                               alt="Blog"
                               style={{
                                 width: "60px",

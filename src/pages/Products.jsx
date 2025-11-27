@@ -208,7 +208,7 @@ const Products = () => {
                               coverImageContent?.data || product.coverImage;
                             return coverImageSrc ? (
                               <img
-                                src={`http://localhost:5000/uploads/${coverImageSrc}`}
+                                src={`${API_BASE_URL.replace('/api','')}/uploads/${coverImageSrc}`}
                                 alt="Product Cover"
                                 style={{
                                   width: "60px",

@@ -93,7 +93,7 @@ const HeroSlider = () => {
               <div key={slide._id} className="slide-card">
                 <div className="slide-image">
                   <img
-                    src={`http://localhost:5000/uploads/${slide.image}`}
+                    src={`${API_BASE_URL.replace('/api','')}/uploads/${slide.image}`}
                     alt={slide.title}
                   />
                   <div className="slide-overlay">

@@ -30,7 +30,7 @@ const HeroSliderForm = () => {
         title: slide.title,
         isActive: slide.isActive
       });
-      setImagePreview(`http://localhost:5000/uploads/${slide.image}`);
+      setImagePreview(`${API_BASE_URL.replace('/api','')}/uploads/${slide.image}`);
     } catch (error) {
       console.error('Error fetching slide:', error);
     }

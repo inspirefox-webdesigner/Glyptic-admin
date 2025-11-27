@@ -218,7 +218,7 @@ const ServiceForm = () => {
                         {content.data && (
                           <div className="image-preview">
                             <img 
-                              src={`http://localhost:5000/uploads/${content.data}`} 
+                              src={`${API_BASE_URL.replace('/api','')}/uploads/${content.data}`} 
                               alt="Preview" 
                             />
                           </div>
