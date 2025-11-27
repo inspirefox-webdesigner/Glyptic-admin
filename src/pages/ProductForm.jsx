@@ -749,7 +749,7 @@ const ProductForm = () => {
                                 formData.append("file", file);
                                 try {
                                   const response = await axios.post(
-                                    "${API_BASE_URL}/upload",
+                                    `${API_BASE_URL}/upload`,
                                     formData
                                   );
                                   updateContent(
@@ -1049,7 +1049,7 @@ const ProductForm = () => {
                               formData.append("file", file);
                               try {
                                 const response = await axios.post(
-                                  "${API_BASE_URL}/upload",
+                                  `${API_BASE_URL}/upload`,
                                   formData
                                 );
                                 updateContent(
@@ -1126,7 +1126,7 @@ const ProductForm = () => {
                                 const formData = new FormData();
                                 formData.append("file", file);
                                 const response = await axios.post(
-                                  "${API_BASE_URL}/upload",
+                                  `${API_BASE_URL}/upload`,
                                   formData
                                 );
                                 return response.data.filename;
@@ -1274,7 +1274,7 @@ const ProductForm = () => {
                                 formData.append("file", file);
                                 try {
                                   const response = await axios.post(
-                                    "${API_BASE_URL}/upload",
+                                    `${API_BASE_URL}/upload`,
                                     formData
                                   );
                                   updateContent(
