@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import API_BASE_URL from '../config/api';
+import API_CONFIG from "../config/api";
+
 
 const Settings = () => {
   const [settings, setSettings] = useState({
@@ -29,7 +30,7 @@ const Settings = () => {
 
   const fetchSettings = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/admin-settings`);
+      const response = await axios.get(`${API_CONFIG.API_BASE_URL}/admin-settings`);
       setSettings(response.data);
     } catch (error) {
       console.error('Error fetching settings:', error);
@@ -45,7 +46,7 @@ const Settings = () => {
     setMessage('');
 
     try {
-      await axios.put(`${API_BASE_URL}/admin-settings`, settings);
+      await axios.put(`${API_CONFIG.API_BASE_URL}/admin-settings`, settings);
       setMessage('Settings saved successfully!');
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
@@ -91,7 +92,7 @@ const Settings = () => {
         }
       };
       
-      await axios.put(`${API_BASE_URL}/admin-settings`, updatedSettings);
+      await axios.put(`${API_CONFIG.API_BASE_URL}/admin-settings`, updatedSettings);
       setSettings(updatedSettings);
       setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
       setPasswordMessage('Password changed successfully!');

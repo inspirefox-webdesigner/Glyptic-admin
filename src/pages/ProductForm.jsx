@@ -6,7 +6,8 @@ import axios from "axios";
 import "react-quill/dist/quill.snow.css";
 import "./ProductForm.css";
 import Toast from "../components/Toast";
-import API_BASE_URL from "../config/api";
+import API_CONFIG from "../config/api";
+
 
 const ProductForm = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const ProductForm = () => {
   const fetchProduct = async () => {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/products/${id}`
+        `${API_CONFIG.API_BASE_URL}/products/${id}`
       );
       const product = response.data;
       setTitle(product.title);
@@ -110,11 +111,11 @@ const ProductForm = () => {
 
       if (isEdit) {
         await axios.put(
-          `${API_BASE_URL}/products/${id}`,
+          `${API_CONFIG.API_BASE_URL}/products/${id}`,
           productData
         );
       } else {
-        await axios.post(`${API_BASE_URL}/products`, productData);
+        await axios.post(`${API_CONFIG.API_BASE_URL}/products`, productData);
       }
 
       setToast({
@@ -194,7 +195,7 @@ const ProductForm = () => {
 
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/upload`,
+        `${API_CONFIG.API_BASE_URL}/upload`,
         formData,
         {
           headers: {
@@ -231,7 +232,7 @@ const ProductForm = () => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        `${API_BASE_URL}/upload`,
+        `${API_CONFIG.API_BASE_URL}/upload`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -281,7 +282,7 @@ const ProductForm = () => {
     formData.append("file", file);
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/upload`,
+        `${API_CONFIG.API_BASE_URL}/upload`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -307,7 +308,7 @@ const ProductForm = () => {
       const formData = new FormData();
       formData.append("file", file);
       const response = await axios.post(
-        `${API_BASE_URL}/upload`,
+        `${API_CONFIG.API_BASE_URL}/upload`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -613,7 +614,7 @@ const ProductForm = () => {
                                 className="image-preview-item"
                               >
                                 <img
-                                  src={`${API_BASE_URL.replace('/api','')}/uploads/${filename}`}
+                                  src={`${API_CONFIG.UPLOAD_BASE_URL}/uploads/${filename}`}
                                   alt={`Preview ${imgIndex + 1}`}
                                   style={{
                                     width: "100px",
@@ -749,7 +750,7 @@ const ProductForm = () => {
                                 formData.append("file", file);
                                 try {
                                   const response = await axios.post(
-                                    `${API_BASE_URL}/upload`,
+                                    `${API_CONFIG.API_BASE_URL}/upload`,
                                     formData
                                   );
                                   updateContent(
@@ -795,7 +796,7 @@ const ProductForm = () => {
                                 style={{ width: "100%", maxWidth: "300px" }}
                               >
                                 <source
-                                  src={`${API_BASE_URL}/${content.data}`}
+                                  src={`${API_CONFIG.API_BASE_URL}/${content.data}`}
                                 />
                               </video>
                             ) : (
@@ -1049,7 +1050,7 @@ const ProductForm = () => {
                               formData.append("file", file);
                               try {
                                 const response = await axios.post(
-                                  `${API_BASE_URL}/upload`,
+                                  `${API_CONFIG.API_BASE_URL}/upload`,
                                   formData
                                 );
                                 updateContent(
@@ -1082,7 +1083,7 @@ const ProductForm = () => {
                             }}
                           >
                             <img
-                              src={`${API_BASE_URL.replace('/api','')}/uploads/${content.data}`}
+                              src={`${API_CONFIG.UPLOAD_BASE_URL}/uploads/${content.data}`}
                               alt="Cover Image"
                               style={{
                                 width: "150px",
@@ -1126,7 +1127,7 @@ const ProductForm = () => {
                                 const formData = new FormData();
                                 formData.append("file", file);
                                 const response = await axios.post(
-                                  `${API_BASE_URL}/upload`,
+                                  `${API_CONFIG.API_BASE_URL}/upload`,
                                   formData
                                 );
                                 return response.data.filename;
@@ -1177,7 +1178,7 @@ const ProductForm = () => {
                                   style={{ position: "relative" }}
                                 >
                                   <img
-                                    src={`${API_BASE_URL.replace('/api','')}/uploads/${filename}`}
+                                    src={`${API_CONFIG.UPLOAD_BASE_URL}/uploads/${filename}`}
                                     alt={`Variation ${imgIndex + 1}`}
                                     style={{
                                       width: "100px",
@@ -1274,7 +1275,7 @@ const ProductForm = () => {
                                 formData.append("file", file);
                                 try {
                                   const response = await axios.post(
-                                    `${API_BASE_URL}/upload`,
+                                    `${API_CONFIG.API_BASE_URL}/upload`,
                                     formData
                                   );
                                   updateContent(

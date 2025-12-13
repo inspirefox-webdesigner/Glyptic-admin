@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import API_BASE_URL from "../config/api";
+import API_CONFIG from "../config/api";
+
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ const Products = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/products`);
+      const response = await axios.get(`${API_CONFIG.API_BASE_URL}/products`);
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -25,7 +26,7 @@ const Products = () => {
   const deleteProduct = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`${API_BASE_URL}/products/${id}`);
+        await axios.delete(`${API_CONFIG.API_BASE_URL}/products/${id}`);
         fetchProducts();
       } catch (error) {
         console.error("Error deleting product:", error);
@@ -208,7 +209,7 @@ const Products = () => {
                               coverImageContent?.data || product.coverImage;
                             return coverImageSrc ? (
                               <img
-                                src={`${API_BASE_URL.replace('/api','')}/uploads/${coverImageSrc}`}
+                                src={`${API_CONFIG.UPLOAD_BASE_URL}/uploads/${coverImageSrc}`}
                                 alt="Product Cover"
                                 style={{
                                   width: "60px",

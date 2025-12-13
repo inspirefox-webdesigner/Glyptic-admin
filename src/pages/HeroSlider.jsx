@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import API_BASE_URL from "../config/api";
+import API_CONFIG from "../config/api";
+
 
 const HeroSlider = () => {
   const [slides, setSlides] = useState([]);
@@ -12,7 +13,7 @@ const HeroSlider = () => {
 
   const fetchSlides = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/hero-slider`);
+      const response = await fetch(`${API_CONFIG.API_BASE_URL}/hero-slider`);
       const data = await response.json();
       setSlides(data);
     } catch (error) {
@@ -25,7 +26,7 @@ const HeroSlider = () => {
   const deleteSlide = async (id) => {
     if (window.confirm("Are you sure you want to delete this slide?")) {
       try {
-        await fetch(`${API_BASE_URL}/hero-slider/${id}`, {
+        await fetch(`${API_CONFIG.API_BASE_URL}/hero-slider/${id}`, {
           method: "DELETE",
         });
         fetchSlides();
@@ -37,7 +38,7 @@ const HeroSlider = () => {
 
   const toggleActive = async (id, isActive) => {
     try {
-      await fetch(`${API_BASE_URL}/hero-slider/${id}`, {
+      await fetch(`${API_CONFIG.API_BASE_URL}/hero-slider/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +94,7 @@ const HeroSlider = () => {
               <div key={slide._id} className="slide-card">
                 <div className="slide-image">
                   <img
-                    src={`${API_BASE_URL.replace('/api','')}/uploads/${slide.image}`}
+                    src={`${API_CONFIG.UPLOAD_BASE_URL}/uploads/${slide.image}`}
                     alt={slide.title}
                   />
                   <div className="slide-overlay">

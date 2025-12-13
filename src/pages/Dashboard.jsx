@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import API_BASE_URL from '../config/api';
+import API_CONFIG from "../config/api";
+
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -37,16 +38,16 @@ const Dashboard = () => {
         trainingEventsRes,
         registrationsRes,
       ] = await Promise.all([
-        axios.get(`${API_BASE_URL}/services`),
-        axios.get(`${API_BASE_URL}/solutions`),
-        axios.get(`${API_BASE_URL}/products`),
-        axios.get(`${API_BASE_URL}/blogs`),
-        axios.get(`${API_BASE_URL}/gallery`),
-        axios.get(`${API_BASE_URL}/careers`),
-        axios.get(`${API_BASE_URL}/contacts`),
-        axios.get(`${API_BASE_URL}/faqs`),
-        axios.get(`${API_BASE_URL}/training/events`),
-        axios.get(`${API_BASE_URL}/training/registrations`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/services`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/solutions`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/products`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/blogs`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/gallery`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/careers`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/contacts`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/faqs`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/training/events`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/training/registrations`),
       ]);
 
       setStats({
@@ -110,7 +111,7 @@ const Dashboard = () => {
               <a
                 href="#"
                 onClick={() =>
-                  window.open(`${API_BASE_URL}/services`, "_blank")
+                  window.open(`${API_CONFIG.API_BASE_URL}/services`, "_blank")
                 }
                 className="btn btn-secondary"
               >

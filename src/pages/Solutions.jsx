@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import API_BASE_URL from '../config/api';
+import API_CONFIG from "../config/api";
+
 
 const Solutions = () => {
   const [solutions, setSolutions] = useState([]);
@@ -13,7 +14,7 @@ const Solutions = () => {
 
   const fetchSolutions = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/solutions`);
+      const response = await axios.get(`${API_CONFIG.API_BASE_URL}/solutions`);
       setSolutions(response.data);
     } catch (error) {
       console.error('Error fetching solutions:', error);
@@ -25,7 +26,7 @@ const Solutions = () => {
   const deleteSolution = async (id) => {
     if (window.confirm('Are you sure you want to delete this solution?')) {
       try {
-        await axios.delete(`${API_BASE_URL}/solutions/${id}`);
+        await axios.delete(`${API_CONFIG.API_BASE_URL}/solutions/${id}`);
         fetchSolutions();
       } catch (error) {
         console.error('Error deleting solution:', error);
@@ -91,7 +92,7 @@ const Solutions = () => {
                         <td style={{ padding: '15px 10px', verticalAlign: 'middle' }}>
                           {firstImage ? (
                             <img 
-                              src={`${API_BASE_URL.replace('/api','')}/uploads/${firstImage.data}`}
+                              src={`${API_CONFIG.UPLOAD_BASE_URL}/uploads/${firstImage.data}`}
                               alt="Solution"
                               style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px' }}
                             />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import API_BASE_URL from '../config/api';
+import API_CONFIG from "../config/api";
+
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
@@ -13,7 +14,7 @@ const Contacts = () => {
 
   const fetchContacts = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/contacts`);
+      const response = await axios.get(`${API_CONFIG.API_BASE_URL}/contacts`);
       setContacts(response.data);
     } catch (error) {
       console.error('Error fetching contacts:', error);
@@ -25,7 +26,7 @@ const Contacts = () => {
   const deleteContact = async (id) => {
     if (window.confirm('Are you sure you want to delete this contact?')) {
       try {
-        await axios.delete(`${API_BASE_URL}/contacts/${id}`);
+        await axios.delete(`${API_CONFIG.API_BASE_URL}/contacts/${id}`);
         fetchContacts();
       } catch (error) {
         console.error('Error deleting contact:', error);

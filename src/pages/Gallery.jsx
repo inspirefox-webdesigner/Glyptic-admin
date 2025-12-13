@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Toast from '../components/Toast';
-import API_BASE_URL from '../config/api';
+import API_CONFIG from "../config/api";
+
  
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -17,7 +18,7 @@ const Gallery = () => {
  
   const fetchImages = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/gallery`);
+      const response = await axios.get(`${API_CONFIG.API_BASE_URL}/gallery`);
       setImages(response.data);
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -30,7 +31,7 @@ const Gallery = () => {
   const deleteImage = async (id) => {
     if (window.confirm('Are you sure you want to delete this image?')) {
       try {
-        await axios.delete(`${API_BASE_URL}/gallery/${id}`);
+        await axios.delete(`${API_CONFIG.API_BASE_URL}/gallery/${id}`);
         setImages(images.filter(image => image._id !== id));
         setToast({ show: true, message: 'Image deleted successfully!', type: 'success' });
       } catch (error) {
@@ -61,7 +62,7 @@ const Gallery = () => {
     if (window.confirm(`Are you sure you want to delete ${selectedImages.length} images?`)) {
       try {
         await Promise.all(selectedImages.map(id =>
-          axios.delete(`${API_BASE_URL}/gallery/${id}`)
+          axios.delete(`${API_CONFIG.API_BASE_URL}/gallery/${id}`)
         ));
         setImages(images.filter(image => !selectedImages.includes(image._id)));
         setSelectedImages([]);
@@ -169,7 +170,7 @@ const Gallery = () => {
                       />
                     </div>
                     <img
-                      src={`${API_BASE_URL.replace('/api','')}/uploads/${image.filename}`}
+                      src={`${API_CONFIG.UPLOAD_BASE_URL}/uploads/${image.filename}`}
                       alt="Gallery"
                       className="w-100"
                       style={{

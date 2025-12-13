@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Toast from '../components/Toast';
-import API_BASE_URL from '../config/api';
+import API_CONFIG from "../config/api";
+
 
 const FAQForm = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const FAQForm = () => {
 
   const fetchFAQ = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/faqs/${id}`);
+      const response = await axios.get(`${API_CONFIG.API_BASE_URL}/faqs/${id}`);
       const faq = response.data;
       setCategoryName(faq.categoryName);
       setQuestions(faq.questions);
@@ -54,9 +55,9 @@ const FAQForm = () => {
       };
 
       if (isEdit) {
-        await axios.put(`${API_BASE_URL}/faqs/${id}`, faqData);
+        await axios.put(`${API_CONFIG.API_BASE_URL}/faqs/${id}`, faqData);
       } else {
-        await axios.post(`${API_BASE_URL}/faqs`, faqData);
+        await axios.post(`${API_CONFIG.API_BASE_URL}/faqs`, faqData);
       }
 
       setToast({ 

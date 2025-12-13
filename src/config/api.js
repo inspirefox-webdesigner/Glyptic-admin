@@ -1,3 +1,6 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_CONFIG = {
+  API_BASE_URL: 'https://admin.glyptic.in/api',
+  UPLOAD_BASE_URL: 'https://api.glyptic.in',
+};
 
-export default API_BASE_URL;
+export default API_CONFIG;

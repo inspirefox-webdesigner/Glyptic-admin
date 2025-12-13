@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import API_BASE_URL from '../config/api';
+import API_CONFIG from "../config/api";
+
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ const Login = ({ onLogin }) => {
 
     try {
       console.log('Submitting login with:', formData);
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      const response = await fetch(`${API_CONFIG.API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
