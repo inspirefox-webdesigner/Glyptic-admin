@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import API_CONFIG from "../config/api";
+import * as XLSX from "xlsx";
 
 
 const Contacts = () => {
@@ -34,6 +35,23 @@ const Contacts = () => {
     }
   };
 
+  const exportToExcel = () => {
+    const exportData = contacts.map((contact, index) => ({
+      "No.": index + 1,
+      Name: contact.name,
+      Email: contact.email,
+      Phone: contact.phone,
+      Subject: contact.subject,
+      Message: contact.message,
+      Date: new Date(contact.createdAt).toLocaleDateString(),
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(exportData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Contacts");
+    XLSX.writeFile(wb, `Contacts_${new Date().toLocaleDateString()}.xlsx`);
+  };
+
   if (loading) return (
     <div className="loading-spinner">
       Loading Contact Submissions...
@@ -42,8 +60,31 @@ const Contacts = () => {
 
   return (
     <div>
-      <div className="page-header">
+         <div
+        className="page-header"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <h1 className="page-title">Contact Submissions</h1>
+        <button
+          onClick={exportToExcel}
+          className="btn btn-success"
+          style={{
+            padding: "10px 20px",
+            fontSize: "14px",
+            fontWeight: "600",
+            borderRadius: "6px",
+            backgroundColor: "#28a745",
+            border: "none",
+            color: "white",
+            cursor: "pointer",
+          }}
+        >
+          📥 Export
+        </button>
       </div>
 
       {contacts.length === 0 ? (
@@ -92,7 +133,7 @@ const Contacts = () => {
                         <div style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {contact.message.length > 10 ? (
                             <>
-                              {contact.message.substring(0, 15)}...
+                              {contact.message.substring(0, 10)}...
                               <br />
                               <button
                                 onClick={() => setSelectedMessage(contact.message)}
