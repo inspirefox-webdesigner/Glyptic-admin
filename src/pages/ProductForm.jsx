@@ -8,7 +8,6 @@ import "./ProductForm.css";
 import Toast from "../components/Toast";
 import API_CONFIG from "../config/api";
 
-
 const ProductForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -25,6 +24,8 @@ const ProductForm = () => {
   const [toast, setToast] = useState({ show: false, message: "", type: "" });
   const [coverImage, setCoverImage] = useState("");
   const [variationImages, setVariationImages] = useState([]);
+  const [dynamicCategories, setDynamicCategories] = useState([]);
+  const [dynamicBrands, setDynamicBrands] = useState([]);
 
   const predefinedCategories = [
     { value: "fire-alarm", label: "Fire Alarm System" },
@@ -56,7 +57,21 @@ const ProductForm = () => {
     if (isEdit) {
       fetchProduct();
     }
+    fetchDynamicOptions();
   }, [id, isEdit]);
+
+  const fetchDynamicOptions = async () => {
+    try {
+      const [categoriesRes, brandsRes] = await Promise.all([
+        axios.get(`${API_CONFIG.API_BASE_URL}/products/categories`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/products/brands`),
+      ]);
+      setDynamicCategories(categoriesRes.data || []);
+      setDynamicBrands(brandsRes.data || []);
+    } catch (error) {
+      console.error("Error fetching dynamic options:", error);
+    }
+  };
 
   const fetchProduct = async () => {
     try {
@@ -125,6 +140,7 @@ const ProductForm = () => {
           : "Product created successfully!",
         type: "success",
       });
+      await fetchDynamicOptions();
       setTimeout(() => navigate("/products"), 1500);
     } catch (error) {
       console.error("Error saving product:", error);
@@ -442,6 +458,16 @@ const ProductForm = () => {
                         {cat.label}
                       </option>
                     ))}
+                    {dynamicCategories
+                      .filter(
+                        (cat) =>
+                          !predefinedCategories.some((p) => p.value === cat)
+                      )
+                      .map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
                   </select>
                 ) : (
                   <input
@@ -515,6 +541,15 @@ const ProductForm = () => {
                         {brandItem.label}
                       </option>
                     ))}
+                    {dynamicBrands
+                      .filter(
+                        (b) => !predefinedBrands.some((p) => p.value === b)
+                      )
+                      .map((b) => (
+                        <option key={b} value={b}>
+                          {b}
+                        </option>
+                      ))}
                   </select>
                 ) : (
                   <input
