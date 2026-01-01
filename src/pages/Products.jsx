@@ -39,6 +39,11 @@ const Products = () => {
       "fire-alarm": "Fire Alarm System",
       "other-products": "Other Products",
       "fire-suppression": "Fire Suppression System",
+      "digital-pa": "Digital PA System",
+      "flame-smoke-camera": "Flame And Smoke Detection Camera",
+      "dts-fo-lhs": "DTS FO LHS System",
+      "linear-heat-cable": "Linear Heat Sensing Cable",
+      "smoke-detector-tester": "Smoke Detector Tester",
     };
     return categories[category] || category;
   };

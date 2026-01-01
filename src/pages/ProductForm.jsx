@@ -31,6 +31,11 @@ const ProductForm = () => {
     { value: "fire-alarm", label: "Fire Alarm System" },
     { value: "other-products", label: "Other Products" },
     { value: "fire-suppression", label: "Fire Suppression System" },
+     { value: "digital-pa", label: "Digital PA System" },
+    { value: "flame-smoke-camera", label: "Flame And Smoke Detection Camera" },
+    { value: "dts-fo-lhs", label: "DTS FO LHS System" },
+    { value: "linear-heat-cable", label: "Linear Heat Sensing Cable" },
+    { value: "smoke-detector-tester", label: "Smoke Detector Tester" }
   ];
 
   // Predefined brands from the "Authorize Partners" menu
