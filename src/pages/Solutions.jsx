@@ -7,6 +7,7 @@ import API_CONFIG from "../config/api";
 const Solutions = () => {
   const [solutions, setSolutions] = useState([]);
   const [loading, setLoading] = useState(true);
+   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchSolutions();
@@ -34,6 +35,10 @@ const Solutions = () => {
     }
   };
 
+    const filteredSolutions = solutions.filter((solution) =>
+    solution.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (loading) return (
     <div className="loading-spinner">
       Loading Solutions...
@@ -42,21 +47,50 @@ const Solutions = () => {
 
   return (
     <div>
-      <div className="page-header">
+       <div className="page-header">
         <h1 className="page-title">Solutions</h1>
-        <Link to="/solutions/new" className="btn btn-primary">
-          Add New Solution
-        </Link>
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+          <div style={{ position: "relative" }}>
+            <span
+              style={{
+                position: "absolute",
+                left: "12px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#a0aec0",
+                fontSize: "1.1rem",
+              }}
+            >
+              🔍
+            </span>
+            <input
+              type="text"
+              placeholder="Search solutions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="product-search"
+            />
+          </div>
+          <Link to="/solutions/new" className="btn btn-primary">
+            Add New Solution
+          </Link>
+        </div>
       </div>
 
-      {solutions.length === 0 ? (
+      {filteredSolutions.length === 0 ? (
         <div className="card">
           <div className="card-body empty-state">
-            <h3>No Solutions Found</h3>
-            <p>Create your first solution to get started!</p>
-            <Link to="/solutions/new" className="btn btn-primary">
-              Create First Solution
-            </Link>
+            <h3>{searchQuery ? "No Solutions Found" : "No Solutions Found"}</h3>
+            <p>
+              {searchQuery
+                ? "Try a different search term"
+                : "Create your first solution to get started!"}
+            </p>
+            {!searchQuery && (
+              <Link to="/solutions/new" className="btn btn-primary">
+                Create First Solution
+              </Link>
+            )}
           </div>
         </div>
       ) : (
@@ -74,7 +108,7 @@ const Solutions = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {solutions.map((solution, index) => {
+                  {filteredSolutions.map((solution, index) => {
                     const firstImage = solution.contents.find(c => c.type === 'image');
                     const contentText = solution.contents
                       .filter(c => c.type === 'content')
