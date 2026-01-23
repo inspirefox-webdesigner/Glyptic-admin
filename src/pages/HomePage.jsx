@@ -29,9 +29,9 @@ const HomePage = () => {
         const data = await response.json();
         setHomeData(data);
         if (data.whoWeAre.image) {
-          setImagePreview(data.whoWeAre.image.startsWith('http') ? 
-            data.whoWeAre.image : 
-            `${API_CONFIG.UPLOAD_BASE_URL}/uploads/${data.whoWeAre.image}`
+         setImagePreview(data.whoWeAre.image.startsWith('/uploads') ? 
+            `${API_CONFIG.UPLOAD_BASE_URL}${data.whoWeAre.image}` : 
+            data.whoWeAre.image
           );
         }
       }
