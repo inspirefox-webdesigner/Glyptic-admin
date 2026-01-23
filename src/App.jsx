@@ -20,9 +20,14 @@ import HeroSliderForm from './pages/HeroSliderForm';
 import ServiceForm from './pages/ServiceForm';
 import SolutionForm from './pages/SolutionForm';
 import ProductForm from './pages/ProductForm';
+import ProductOrdering from './pages/ProductOrdering';
+import DeleteCategoryBrand from './pages/DeleteCategoryBrand';
 import BlogForm from './pages/BlogForm';
 import GalleryForm from './pages/GalleryForm';
 import FAQForm from './pages/FAQForm';
+import ContactUs from './pages/ContactUs';
+import HomePage from './pages/HomePage';
+import HomeLogos from './pages/HomeLogos';
 import './App.css';
  
 function App() {
@@ -72,6 +77,8 @@ function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/products/new" element={<ProductForm />} />
               <Route path="/products/edit/:id" element={<ProductForm />} />
+              <Route path="/products/arrange" element={<ProductOrdering />} />
+              <Route path="/products/delete-category-brand" element={<DeleteCategoryBrand />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/blogs/new" element={<BlogForm />} />
               <Route path="/blogs/edit/:id" element={<BlogForm />} />
@@ -87,6 +94,9 @@ function App() {
               <Route path="/hero-slider" element={<HeroSlider />} />
               <Route path="/hero-slider/new" element={<HeroSliderForm />} />
               <Route path="/hero-slider/edit/:id" element={<HeroSliderForm />} />
+              <Route path="/home-logos" element={<HomeLogos />} />
+              <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/home-page" element={<HomePage />} />
               <Route path="/login" element={<Navigate to="/" replace />} />
             </Routes>
           </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import API_CONFIG from "../config/api";
+import "./Products.css";
 
 
 const Products = () => {
@@ -65,10 +66,10 @@ const Products = () => {
     return <div className="loading-spinner">Loading Products...</div>;
 
   return (
-    <div>
+    <div className="products-page-container">
       <div className="page-header">
         <h1 className="page-title">Products</h1>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+        <div className="page-header-actions">
           <div style={{ position: "relative" }}>
             <span
               style={{
@@ -90,6 +91,12 @@ const Products = () => {
               className="product-search"
             />
           </div>
+          <Link to="/products/delete-category-brand" className="btn2 btn-secondary">
+            Delete Cat/brand
+          </Link>
+          <Link to="/products/arrange" className="btn btn-secondary">
+            📋 Arrange Products
+          </Link>
           <Link to="/products/new" className="btn btn-primary">
             Add New Product
           </Link>
