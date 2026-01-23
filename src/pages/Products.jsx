@@ -91,11 +91,11 @@ const Products = () => {
               className="product-search"
             />
           </div>
-          <Link to="/products/delete-category-brand" className="btn2 btn-secondary">
+          <Link to="/products/delete-category-brand" className="btn btn-secondary">
             Delete Cat/brand
           </Link>
           <Link to="/products/arrange" className="btn btn-secondary">
-            📋 Arrange Products
+            Arrange Products
           </Link>
           <Link to="/products/new" className="btn btn-primary">
             Add New Product
