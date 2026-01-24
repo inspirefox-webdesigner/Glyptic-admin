@@ -29,10 +29,10 @@ const HomePage = () => {
         const data = await response.json();
         setHomeData(data);
         if (data.whoWeAre.image) {
-         setImagePreview(data.whoWeAre.image.startsWith('/uploads') ? 
-            `${API_CONFIG.UPLOAD_BASE_URL}${data.whoWeAre.image}` : 
-            data.whoWeAre.image
-          );
+          const imageUrl = data.whoWeAre.image.startsWith('/uploads') || data.whoWeAre.image.startsWith('http') ? 
+            (data.whoWeAre.image.startsWith('/uploads') ? `${API_CONFIG.UPLOAD_BASE_URL}${data.whoWeAre.image}` : data.whoWeAre.image) :
+            `${API_CONFIG.UPLOAD_BASE_URL}/uploads/home-page/${data.whoWeAre.image}`;
+          setImagePreview(imageUrl);
         }
       }
     } catch (error) {
