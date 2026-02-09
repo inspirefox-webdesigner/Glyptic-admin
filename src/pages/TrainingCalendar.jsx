@@ -13,6 +13,7 @@ const TrainingCalendar = () => {
   const [newEventTime, setNewEventTime] = useState("");
   const [newEventFormType, setNewEventFormType] = useState("existing");
   const [newEventCustomLink, setNewEventCustomLink] = useState("");
+   const [editEventDate, setEditEventDate] = useState("");
   const [editingEvent, setEditingEvent] = useState(null);
   const [calendar, setCalendar] = useState(null);
 
