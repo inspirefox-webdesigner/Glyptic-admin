@@ -2040,3 +2040,9 @@ body {
     gap: 1rem;
   }
 }
+
+.modal-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

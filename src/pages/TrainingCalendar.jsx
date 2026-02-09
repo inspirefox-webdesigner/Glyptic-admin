@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import API_CONFIG from "../config/api";
 
-
 const TrainingCalendar = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,7 +30,7 @@ const TrainingCalendar = () => {
   const fetchEvents = async () => {
     try {
       const response = await axios.get(
-        `${API_CONFIG.API_BASE_URL}/training/events`
+        `${API_CONFIG.API_BASE_URL}/training/events`,
       );
       console.log("Fetched events:", response.data);
       setEvents(response.data);
@@ -105,6 +104,7 @@ const TrainingCalendar = () => {
       setEditingEvent(event);
       setNewEventTitle(event.title);
       setNewEventDescription(event.description || "");
+      setEditEventDate(event.date.split("T")[0]);
       setNewEventTime(event.time || "");
       setNewEventFormType(event.formType || "existing");
       setNewEventCustomLink(event.customFormLink || "");
@@ -127,7 +127,7 @@ const TrainingCalendar = () => {
 
       const response = await axios.post(
         `${API_CONFIG.API_BASE_URL}/training/events`,
-        eventData
+        eventData,
       );
 
       fetchEvents();
@@ -144,13 +144,13 @@ const TrainingCalendar = () => {
   };
 
   const updateEvent = async () => {
-    if (!newEventTitle.trim() || !editingEvent) return;
+    if (!newEventTitle.trim() || !editingEvent || !editEventDate) return;
 
     try {
       const eventData = {
         title: newEventTitle,
         description: newEventDescription,
-        date: editingEvent.date,
+        date: editEventDate,
         time: newEventTime,
         formType: newEventFormType,
         customFormLink: newEventFormType === "custom" ? newEventCustomLink : "",
@@ -158,7 +158,7 @@ const TrainingCalendar = () => {
 
       await axios.put(
         `${API_CONFIG.API_BASE_URL}/training/events/${editingEvent._id}`,
-        eventData
+        eventData,
       );
 
       fetchEvents();
@@ -166,6 +166,7 @@ const TrainingCalendar = () => {
       setNewEventTitle("");
       setNewEventDescription("");
       setNewEventTime("");
+      setEditEventDate("");
       setNewEventFormType("existing");
       setNewEventCustomLink("");
       setEditingEvent(null);
@@ -180,7 +181,7 @@ const TrainingCalendar = () => {
 
     try {
       await axios.delete(
-        `${API_CONFIG.API_BASE_URL}/training/events/${eventId}`
+        `${API_CONFIG.API_BASE_URL}/training/events/${eventId}`,
       );
 
       fetchEvents();
@@ -285,6 +286,7 @@ const TrainingCalendar = () => {
                       setEditingEvent(event);
                       setNewEventTitle(event.title);
                       setNewEventDescription(event.description || "");
+                      setEditEventDate(event.date.split("T")[0]);
                       setNewEventTime(event.time || "");
                       setNewEventFormType(event.formType || "existing");
                       setNewEventCustomLink(event.customFormLink || "");
@@ -570,6 +572,7 @@ const TrainingCalendar = () => {
                   onClick={() => setShowEditModal(false)}
                   style={{
                     background: "none",
+                    color: "#000000",
                     border: "none",
                     fontSize: "1.5rem",
                   }}
@@ -618,6 +621,26 @@ const TrainingCalendar = () => {
                       padding: "0.5rem 0.75rem",
                       color: "#000",
                       resize: "vertical",
+                    }}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label
+                    className="form-label"
+                    style={{ color: "#000", fontWeight: "500" }}
+                  >
+                    Event Date
+                  </label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    value={editEventDate}
+                    onChange={(e) => setEditEventDate(e.target.value)}
+                    style={{
+                      border: "1px solid #ced4da",
+                      borderRadius: "4px",
+                      padding: "0.5rem 0.75rem",
+                      color: "#000",
                     }}
                   />
                 </div>
@@ -702,7 +725,7 @@ const TrainingCalendar = () => {
                   onClick={() => {
                     if (
                       window.confirm(
-                        "Are you sure you want to delete this event?"
+                        "Are you sure you want to delete this event?",
                       )
                     ) {
                       deleteEvent();
