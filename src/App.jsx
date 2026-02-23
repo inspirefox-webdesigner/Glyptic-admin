@@ -14,6 +14,9 @@ import Careers from './pages/Careers';
 import Contacts from './pages/Contacts';
 import FAQs from './pages/FAQs';
 import TrainingCalendar from './pages/TrainingCalendar';
+import TrainingPages from './pages/TrainingPages';
+import TrainingPageForm from './pages/TrainingPageForm';
+import TrainingPageData from './pages/TrainingPageData';
 import EventsData from './pages/EventsData';
 import HeroSlider from './pages/HeroSlider';
 import HeroSliderForm from './pages/HeroSliderForm';
@@ -90,6 +93,10 @@ function App() {
               <Route path="/faqs/new" element={<FAQForm />} />
               <Route path="/faqs/edit/:id" element={<FAQForm />} />
               <Route path="/training-calendar" element={<TrainingCalendar />} />
+              <Route path="/training-pages" element={<TrainingPages />} />
+              <Route path="/training-pages/new" element={<TrainingPageForm />} />
+              <Route path="/training-pages/edit/:id" element={<TrainingPageForm />} />
+              <Route path="/training-page-data" element={<TrainingPageData />} />
               <Route path="/events-data" element={<EventsData />} />
               <Route path="/hero-slider" element={<HeroSlider />} />
               <Route path="/hero-slider/new" element={<HeroSliderForm />} />

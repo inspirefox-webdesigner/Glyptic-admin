@@ -212,6 +212,24 @@ const Navbar = ({ onLogout }) => {
              Training Calendar
           </Link>
         </li>
+         <li>
+          <Link
+            to="/training-pages"
+            className={`sidebar-link ${location.pathname.includes('/training-pages') ? 'active' : ''}`}
+            onClick={closeMenu}
+          >
+             Training Pages
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/training-page-data"
+            className={`sidebar-link ${location.pathname.includes('/training-page-data') ? 'active' : ''}`}
+            onClick={closeMenu}
+          >
+             Training Page Data
+          </Link>
+        </li>
         <li>
           <Link
             to="/events-data"
