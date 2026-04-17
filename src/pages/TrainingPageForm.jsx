@@ -10,6 +10,9 @@ const TrainingPageForm = () => {
   const isEditMode = Boolean(id);
 
   const [loading, setLoading] = useState(false);
+   // Box images state - 3 boxes mate 3 image files
+  const [boxImages, setBoxImages] = useState([null, null, null]);
+  const [boxImagePreviews, setBoxImagePreviews] = useState(["", "", ""]);
   const [formData, setFormData] = useState({
     pageName: "",
     slug: "",
@@ -46,6 +49,22 @@ const TrainingPageForm = () => {
       fetchPage();
     }
   }, [id]);
+
+    // Remove box image
+  const handleBoxImageRemove = (boxIndex) => {
+    const newImages = [...boxImages];
+    newImages[boxIndex] = null;
+    setBoxImages(newImages);
+
+    const newPreviews = [...boxImagePreviews];
+    newPreviews[boxIndex] = "";
+    setBoxImagePreviews(newPreviews);
+
+    // existing saved image pan clear karvo
+    const updatedBoxes = [...formData.boxes];
+    updatedBoxes[boxIndex].image = "";
+    setFormData({ ...formData, boxes: updatedBoxes });
+  };
 
   // Fetch page data for editing
   const fetchPage = async () => {
@@ -161,6 +180,17 @@ const TrainingPageForm = () => {
 
     try {
       setLoading(true);
+ // Use FormData to support image uploads
+      const data = new FormData();
+      data.append("pageName", formData.pageName);
+      data.append("slug", formData.slug);
+      data.append("boxes", JSON.stringify(formData.boxes));
+      boxImages.forEach((img, i) => {
+        if (img) data.append(`box${i}image`, img);
+      });
+
+
+
       if (isEditMode) {
         await axios.put(`${API_CONFIG.API_BASE_URL}/training-pages/${id}`, formData);
         alert("Training page updated successfully");
@@ -234,6 +264,50 @@ const TrainingPageForm = () => {
               <h5 style={{ margin: 0, color: "#000" }}>Box {box.number}</h5>
             </div>
             <div className="card-body" style={{ padding: "20px" }}>
+               <div style={{ marginBottom: "15px" }}>
+                <label className="traningform-label">Box Image</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="traningform-input"
+                  onChange={(e) =>
+                    handleBoxImageChange(boxIndex, e.target.files[0])
+                  }
+                />
+                {boxImagePreviews[boxIndex] && (
+                   <div style={{ position: "relative", display: "inline-block", marginTop: "8px", width: "100%" }}>
+                  <img
+                    src={boxImagePreviews[boxIndex]}
+                    alt={`Box ${box.number} preview`}
+                    style={{
+                      width: "100%",
+                      height: "180px",
+                      objectFit: "cover",
+                      borderRadius: "4px",
+                      border: "1px solid #ced4da",
+                    }}
+                  />
+                  <button
+                      type="button"
+                      onClick={() => handleBoxImageRemove(boxIndex)}
+                      style={{
+                        position: "absolute",
+                        top: "6px",
+                        right: "6px",
+                        backgroundColor: "#dc3545",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "4px",
+                        padding: "3px 10px",
+                        cursor: "pointer",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
+              </div>
               {/* Box Title */}
               <div style={{ marginBottom: "15px" }}>
                 <label className="traningform-label">Box Title *</label>

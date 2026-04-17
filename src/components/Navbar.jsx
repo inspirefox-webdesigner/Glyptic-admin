@@ -157,6 +157,28 @@ const Navbar = ({ onLogout }) => {
           >
             Products
           </Link>
+          <ul style={{ listStyle: 'none', paddingLeft: '1.2rem', margin: '0.2rem 0 0.4rem' }}>
+            <li>
+              <Link
+                to="/products/menu-order"
+                className={`sidebar-link sidebar-sublink ${location.pathname === '/products/menu-order' ? 'active' : ''}`}
+                onClick={closeMenu}
+                style={{ fontSize: '0.88rem', padding: '0.3rem 0.8rem', marginTop:'5px' }}
+              >
+                ↳ Products Menu
+              </Link>
+            </li>
+             <li>
+              <Link
+                to="/products/menu-hide"
+                className={`sidebar-link sidebar-sublink ${location.pathname === '/products/menu-hide' ? 'active' : ''}`}
+                onClick={closeMenu}
+                style={{ fontSize: '0.88rem', padding: '0.3rem 0.8rem', marginTop:'2px' }}
+              >
+                ↳ Products Menu Hide
+              </Link>
+            </li>
+          </ul>
         </li>
         <li>
           <Link
