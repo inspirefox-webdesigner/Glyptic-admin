@@ -23,8 +23,8 @@ const MenuHide = () => {
       const [catsRes, brandsRes, hideCatRes, hideBrandRes] = await Promise.all([
         axios.get(`${API_CONFIG.API_BASE_URL}/products/categories`),
         axios.get(`${API_CONFIG.API_BASE_URL}/products/brands`),
-        axios.get(`${API_CONFIG.API_SECOUNDBASE_URL}/menu-hide/category`),
-        axios.get(`${API_CONFIG.API_SECOUNDBASE_URL}/menu-hide/brand`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/menu-hide/category`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/menu-hide/brand`),
       ]);
       setCategories(catsRes.data || []);
       setBrands(brandsRes.data || []);

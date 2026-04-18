@@ -21,8 +21,8 @@ const MenuOrdering = () => {
       const [allCatsRes, allBrandsRes, catOrderRes, brandOrderRes] = await Promise.all([
         axios.get(`${API_CONFIG.API_BASE_URL}/products/categories`),
         axios.get(`${API_CONFIG.API_BASE_URL}/products/brands`),
-        axios.get(`${API_CONFIG.API_SECOUNDBASE_URL}/menu-order/category`),
-        axios.get(`${API_CONFIG.API_SECOUNDBASE_URL}/menu-order/brand`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/menu-order/category`),
+        axios.get(`${API_CONFIG.API_BASE_URL}/menu-order/brand`),
       ]);
 
       const allCats = allCatsRes.data || [];
