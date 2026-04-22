@@ -66,12 +66,37 @@ const TrainingPageForm = () => {
     setFormData({ ...formData, boxes: updatedBoxes });
   };
 
+     // Handle box image selection and preview
+    const handleBoxImageChange = (boxIndex, file) => {
+      const newImages = [...boxImages];
+      newImages[boxIndex] = file;
+      setBoxImages(newImages);
+
+      const newPreviews = [...boxImagePreviews];
+      if (file) {
+        newPreviews[boxIndex] = URL.createObjectURL(file);
+      } else {
+        newPreviews[boxIndex] = "";
+      }
+      setBoxImagePreviews(newPreviews);
+    };
+
   // Fetch page data for editing
   const fetchPage = async () => {
     try {
       setLoading(true);
       const response = await axios.get(`${API_CONFIG.API_BASE_URL}/training-pages/${id}`);
       setFormData(response.data);
+      // set previews for existing images
+      const previews = ["", "", ""];
+      if (response.data && response.data.boxes) {
+        response.data.boxes.forEach((b, i) => {
+          if (b && b.image) {
+            previews[i] = `${API_CONFIG.UPLOAD_BASE_URL}/uploads/${b.image}`;
+          }
+        });
+      }
+      setBoxImagePreviews(previews);
     } catch (error) {
       console.error("Error fetching page:", error);
       alert("Failed to load page data");
@@ -181,23 +206,23 @@ const TrainingPageForm = () => {
     try {
       setLoading(true);
  // Use FormData to support image uploads
-      const data = new FormData();
-      data.append("pageName", formData.pageName);
-      data.append("slug", formData.slug);
-      data.append("boxes", JSON.stringify(formData.boxes));
-      boxImages.forEach((img, i) => {
-        if (img) data.append(`box${i}image`, img);
-      });
+    const data = new FormData();
+        data.append("pageName", formData.pageName);
+        data.append("slug", formData.slug);
+        data.append("boxes", JSON.stringify(formData.boxes));
+        boxImages.forEach((img, i) => {
+          if (img) data.append(`box${i}image`, img);
+        });
 
 
 
       if (isEditMode) {
-        await axios.put(`${API_CONFIG.API_BASE_URL}/training-pages/${id}`, formData);
-        alert("Training page updated successfully");
-      } else {
-        await axios.post(`${API_CONFIG.API_BASE_URL}/training-pages`, formData);
-        alert("Training page created successfully");
-      }
+          await axios.put(`${API_CONFIG.API_BASE_URL}/training-pages/${id}`, data);
+          alert("Training page updated successfully");
+        } else {
+          await axios.post(`${API_CONFIG.API_BASE_URL}/training-pages`, data);
+          alert("Training page created successfully");
+        }
       navigate("/training-pages");
     } catch (error) {
       console.error("Error saving page:", error);
